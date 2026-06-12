@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroqController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminLandingPageController;
+use App\Http\Controllers\BarberShopController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\GeminiController;
@@ -17,6 +18,9 @@ use App\Http\Controllers\GeminiController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/barber-shops', [BarberShopController::class, 'index']);
+Route::get('/nearby-barbers', [BarberShopController::class, 'nearby']);
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');

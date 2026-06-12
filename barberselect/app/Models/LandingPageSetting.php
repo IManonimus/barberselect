@@ -29,6 +29,7 @@ class LandingPageSetting extends Model
                 'catalog' => true,
                 'trends' => true,
                 'ai' => true,
+                'map' => true,
                 'about' => true,
             ],
             'catalog' => [
@@ -62,6 +63,15 @@ class LandingPageSetting extends Model
                 'result_title' => 'Hasil rekomendasi',
                 'disclaimer_title' => 'Disclaimer',
                 'disclaimer_text' => 'BarberSelect hanya sebagai referensi. Hasil akhir bisa berbeda tergantung jenis rambut, bentuk wajah, dan teknik barber.',
+            ],
+            'map' => [
+                'kicker' => 'LOCATIONS',
+                'title' => 'Temukan barbershop terdekat',
+                'subtitle' => 'Map akan menemukan babershop 5km dari sekitar anda',
+                'hint' => 'Peta mengikuti lokasi kamu. Rekomendasi diperbarui otomatis saat kamu bergerak.',
+                'center_lat' => -6.2088,
+                'center_lng' => 106.8456,
+                'zoom' => 12,
             ],
             'about' => [
                 'kicker' => 'ABOUT',

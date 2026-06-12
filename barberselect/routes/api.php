@@ -5,6 +5,7 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GroqController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BarberShopController;
 use App\Http\Controllers\LandingPageApiController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,8 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::get('/landing-page', [LandingPageApiController::class, 'show']);
+Route::get('/barber-shops', [BarberShopController::class, 'index']);
+Route::get('/nearby-barbers', [BarberShopController::class, 'nearby']);
 
 // Protected routes (butuh token)
 Route::middleware('auth:sanctum')->group(function () {
