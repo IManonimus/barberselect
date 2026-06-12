@@ -110,12 +110,17 @@ class _ProfilePageState extends State<ProfilePage> {
                           margin: const EdgeInsets.only(bottom: 16),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                            color: const Color(0x1AFF0000).withValues(alpha: 0.1),
+                            color: const Color(
+                              0x1AFF0000,
+                            ).withValues(alpha: 0.1),
                             border: Border.all(color: const Color(0x33FF0000)),
                           ),
                           child: Text(
                             _error!,
-                            style: const TextStyle(color: Color(0xFFFF6B6B), fontSize: 13),
+                            style: const TextStyle(
+                              color: Color(0xFFFF6B6B),
+                              fontSize: 13,
+                            ),
                           ),
                         ),
                       Expanded(
@@ -127,7 +132,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(24),
                                   color: const Color(0x08FFFFFF),
-                                  border: Border.all(color: const Color(0x1AFFFFFF)),
+                                  border: Border.all(
+                                    color: const Color(0x1AFFFFFF),
+                                  ),
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,7 +143,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       children: [
                                         Expanded(
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 'Nama',
@@ -149,7 +157,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                               const SizedBox(height: 8),
                                               TextField(
                                                 controller: _nameController,
-                                                style: const TextStyle(color: Colors.white, fontSize: 14),
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14,
+                                                ),
                                                 decoration: InputDecoration(
                                                   hintText: 'Nama lengkap',
                                                 ),
@@ -160,7 +171,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                         const SizedBox(width: 12),
                                         Expanded(
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 'Email',
@@ -173,7 +185,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                               const SizedBox(height: 8),
                                               TextField(
                                                 controller: _emailController,
-                                                style: const TextStyle(color: Colors.white, fontSize: 14),
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14,
+                                                ),
                                                 decoration: InputDecoration(
                                                   hintText: 'Email address',
                                                 ),
@@ -188,7 +203,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       children: [
                                         Expanded(
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 'Password baru',
@@ -202,7 +218,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                               Text(
                                                 '(opsional)',
                                                 style: TextStyle(
-                                                  color: Colors.white.withValues(alpha: 0.4),
+                                                  color: Colors.white
+                                                      .withValues(alpha: 0.4),
                                                   fontSize: 12,
                                                 ),
                                               ),
@@ -210,9 +227,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                               TextField(
                                                 controller: _passwordController,
                                                 obscureText: true,
-                                                style: const TextStyle(color: Colors.white, fontSize: 14),
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14,
+                                                ),
                                                 decoration: InputDecoration(
-                                                  hintText: 'Biarkan kosong jika tidak ingin mengganti',
+                                                  hintText:
+                                                      'Biarkan kosong jika tidak ingin mengganti',
                                                 ),
                                               ),
                                             ],
@@ -221,7 +242,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                         const SizedBox(width: 12),
                                         Expanded(
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 'Konfirmasi password',
@@ -234,9 +256,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                               const SizedBox(height: 8),
                                               TextField(
                                                 obscureText: true,
-                                                style: const TextStyle(color: Colors.white, fontSize: 14),
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14,
+                                                ),
                                                 decoration: InputDecoration(
-                                                  hintText: 'Ulangi password baru',
+                                                  hintText:
+                                                      'Ulangi password baru',
                                                 ),
                                               ),
                                             ],
@@ -252,18 +278,36 @@ class _ProfilePageState extends State<ProfilePage> {
                                         onPressed: _saving
                                             ? null
                                             : () async {
-                                                final messenger = ScaffoldMessenger.of(context);
-                                                final repo = GetIt.instance<ProfileRepository>();
-                                                final local = GetIt.instance<AuthLocalDatasource>();
+                                                final messenger =
+                                                    ScaffoldMessenger.of(
+                                                      context,
+                                                    );
+                                                final repo =
+                                                    GetIt.instance<
+                                                      ProfileRepository
+                                                    >();
+                                                final local =
+                                                    GetIt.instance<
+                                                      AuthLocalDatasource
+                                                    >();
 
-                                                final name = _nameController.text.trim();
-                                                final email = _emailController.text.trim();
-                                                final passText = _passwordController.text.trim();
+                                                final name = _nameController
+                                                    .text
+                                                    .trim();
+                                                final email = _emailController
+                                                    .text
+                                                    .trim();
+                                                final passText =
+                                                    _passwordController.text
+                                                        .trim();
 
-                                                if (name.isEmpty || email.isEmpty) {
+                                                if (name.isEmpty ||
+                                                    email.isEmpty) {
                                                   messenger.showSnackBar(
                                                     const SnackBar(
-                                                      content: Text('Nama dan email tidak boleh kosong.'),
+                                                      content: Text(
+                                                        'Nama dan email tidak boleh kosong.',
+                                                      ),
                                                     ),
                                                   );
                                                   return;
@@ -271,11 +315,15 @@ class _ProfilePageState extends State<ProfilePage> {
 
                                                 setState(() => _saving = true);
                                                 try {
-                                                  final updated = await repo.updateProfile(
-                                                    name: name,
-                                                    email: email,
-                                                    password: passText.isEmpty ? null : passText,
-                                                  );
+                                                  final updated = await repo
+                                                      .updateProfile(
+                                                        name: name,
+                                                        email: email,
+                                                        password:
+                                                            passText.isEmpty
+                                                            ? null
+                                                            : passText,
+                                                      );
                                                   await local.saveUser(updated);
 
                                                   if (!mounted) return;
@@ -288,8 +336,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   });
                                                   messenger.showSnackBar(
                                                     const SnackBar(
-                                                      content: Text('Profil berhasil diperbarui.'),
-                                                      backgroundColor: Color(0xFF10B981),
+                                                      content: Text(
+                                                        'Profil berhasil diperbarui.',
+                                                      ),
+                                                      backgroundColor: Color(
+                                                        0xFF10B981,
+                                                      ),
                                                     ),
                                                   );
                                                 } catch (e) {
@@ -304,7 +356,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                             ? const SizedBox(
                                                 height: 20,
                                                 width: 20,
-                                                child: CircularProgressIndicator(strokeWidth: 2),
+                                                child:
+                                                    CircularProgressIndicator(
+                                                      strokeWidth: 2,
+                                                    ),
                                               )
                                             : const Text('Simpan perubahan'),
                                       ),
@@ -325,7 +380,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                 const SizedBox(height: 16),
                                 OutlinedButton.icon(
                                   onPressed: () => context.go('/admin'),
-                                  icon: const Icon(Icons.admin_panel_settings_outlined, size: 18),
+                                  icon: const Icon(
+                                    Icons.admin_panel_settings_outlined,
+                                    size: 18,
+                                  ),
                                   label: const Text('Admin Dashboard'),
                                 ),
                               ],
@@ -338,7 +396,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
         bottomNavigationBar: MainBottomNav(
-          currentIndex: 3,
+          currentIndex: 4,
           onTap: (i) {
             switch (i) {
               case 0:
@@ -351,6 +409,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 context.go('/ai');
                 break;
               case 3:
+                context.go('/map');
+                break;
+              case 4:
                 context.go('/profile');
                 break;
             }

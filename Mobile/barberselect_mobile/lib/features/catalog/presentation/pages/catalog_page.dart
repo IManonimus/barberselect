@@ -127,12 +127,13 @@ class _CatalogPageState extends State<CatalogPage> {
                               );
                             }
                             return GridView.builder(
-                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 12,
-                                mainAxisSpacing: 12,
-                                childAspectRatio: 0.72,
-                              ),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 12,
+                                    mainAxisSpacing: 12,
+                                    childAspectRatio: 0.72,
+                                  ),
                               itemCount: catalogs.length,
                               itemBuilder: (context, index) {
                                 return CatalogModelCard(
@@ -164,6 +165,9 @@ class _CatalogPageState extends State<CatalogPage> {
                 context.go('/ai');
                 break;
               case 3:
+                context.go('/map');
+                break;
+              case 4:
                 context.go('/profile');
                 break;
             }
@@ -206,9 +210,7 @@ class _CategoryChips extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(999),
-                color: isSel
-                    ? Colors.white
-                    : const Color(0x08FFFFFF),
+                color: isSel ? Colors.white : const Color(0x08FFFFFF),
                 border: isSel
                     ? null
                     : Border.all(color: const Color(0x1AFFFFFF)),
@@ -216,7 +218,9 @@ class _CategoryChips extends StatelessWidget {
               child: Text(
                 chip.label,
                 style: TextStyle(
-                  color: isSel ? const Color(0xFF0A0A0A) : Colors.white.withValues(alpha: 0.85),
+                  color: isSel
+                      ? const Color(0xFF0A0A0A)
+                      : Colors.white.withValues(alpha: 0.85),
                   fontWeight: FontWeight.w600,
                   fontSize: 12,
                 ),
@@ -254,14 +258,21 @@ class CatalogModelCard extends StatelessWidget {
                 children: [
                   if (catalog.imageUrl != null && catalog.imageUrl!.isNotEmpty)
                     ClipRRect(
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-                      child: Image.network(catalog.imageUrl!, fit: BoxFit.cover),
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(24),
+                      ),
+                      child: Image.network(
+                        catalog.imageUrl!,
+                        fit: BoxFit.cover,
+                      ),
                     )
                   else
                     Container(
                       decoration: const BoxDecoration(
                         color: Color(0xFF1C1F33),
-                        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(24),
+                        ),
                       ),
                     ),
                   Container(
@@ -277,7 +288,10 @@ class CatalogModelCard extends StatelessWidget {
                     top: 12,
                     right: 12,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(999),
                         color: const Color(0x08FFFFFF),

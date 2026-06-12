@@ -36,6 +36,9 @@ class _HomePageState extends State<HomePage> {
         context.go('/ai');
         return;
       case 3:
+        context.go('/map');
+        return;
+      case 4:
         context.go('/profile');
         return;
     }
@@ -288,6 +291,102 @@ class _HomePageState extends State<HomePage> {
                                   SizedBox(height: 4),
                                   Text(
                                     'Deskripsikan gaya rambut impianmu',
+                                    style: TextStyle(
+                                      color: Color(0xFFA3A3A3),
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Icon(
+                              Icons.chevron_right,
+                              color: Colors.white.withValues(alpha: 0.3),
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 28),
+
+                  // Map section
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: _SectionKicker(text: landing.mapConfig.kicker),
+                  ),
+                  const SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      landing.mapConfig.title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: -0.5,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      landing.mapConfig.subtitle.isNotEmpty
+                          ? landing.mapConfig.subtitle
+                          : 'Temukan barbershop terdekat dari lokasi kamu',
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.65),
+                        fontSize: 13,
+                        height: 1.5,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(24),
+                      onTap: () => context.go('/map'),
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(24),
+                          color: const Color(0x08FFFFFF),
+                          border: Border.all(color: const Color(0x1AFFFFFF)),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 44,
+                              height: 44,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(14),
+                                color: const Color(0x1A3B82F6),
+                              ),
+                              child: const Icon(
+                                Icons.map_rounded,
+                                color: Color(0xFF60A5FA),
+                                size: 22,
+                              ),
+                            ),
+                            const SizedBox(width: 14),
+                            const Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Lihat peta interaktif',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  SizedBox(height: 4),
+                                  Text(
+                                    'Temukan barbershop di sekitar lokasi kamu',
                                     style: TextStyle(
                                       color: Color(0xFFA3A3A3),
                                       fontSize: 12,

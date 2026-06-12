@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BarberSelect - Temukan Gaya Rambut Terbaikmu</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/map.js'])
     <style>
         :root { color-scheme: dark; }
         html { scroll-behavior: smooth; }
@@ -13,6 +13,38 @@
         }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        #barberMap { z-index: 0; }
+        #barberMap .leaflet-control-zoom a {
+            background: rgba(23, 23, 23, 0.9);
+            color: #f5f5f5;
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+        #barberMap .leaflet-control-zoom a:hover {
+            background: rgba(38, 38, 38, 0.95);
+        }
+        #barberMap .leaflet-popup-content-wrapper {
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        }
+        #mapLoading {
+            background: rgba(10, 10, 10, 0.72);
+            backdrop-filter: blur(6px);
+        }
+        .user-pulse-marker {
+            animation: pulse-ring 2s ease-out infinite;
+        }
+        @keyframes pulse-ring {
+            0% { opacity: 0.6; transform: scale(1); }
+            70% { opacity: 0.1; transform: scale(1.8); }
+            100% { opacity: 0; transform: scale(2); }
+        }
+        @media (max-width: 1023px) {
+            #barberList {
+                max-height: 24rem;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
     </style>
 </head>
 @php
@@ -38,6 +70,7 @@
                 <a href="#catalog" class="hover:text-white">Katalog</a>
                 <a href="#trends" class="hover:text-white">Tren</a>
                 <a href="#ai" class="hover:text-white">AI</a>
+                <a href="#map" class="hover:text-white">Lokasi</a>
                 <a href="#about" class="hover:text-white">Tentang</a>
             </nav>
 
@@ -257,6 +290,64 @@
                             <p class="mt-2 text-sm leading-relaxed text-amber-100/80">
                                 {{ $lp['ai']['disclaimer_text'] ?? '' }}
                             </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        @endif
+
+        @if(($lp['sections']['map'] ?? true) === true)
+        <section id="map" class="border-t border-white/10">
+            <div class="mx-auto max-w-6xl px-5 py-16 md:py-20">
+                <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+                    <div>
+                        <p class="text-xs font-semibold tracking-[0.35em] text-white/60">{{ $lp['map']['kicker'] ?? 'LOCATIONS' }}</p>
+                        <h2 class="mt-3 text-2xl font-semibold tracking-tight text-white md:text-3xl">{{ $lp['map']['title'] ?? 'Temukan barbershop terdekat' }}</h2>
+                        <p class="mt-2 max-w-2xl text-sm leading-relaxed text-white/65 md:text-base">
+                            {{ $lp['map']['subtitle'] ?? '' }}
+                        </p>
+                    </div>
+                    <div class="text-sm text-white/60">{{ $lp['map']['hint'] ?? '' }}</div>
+                </div>
+
+                <p id="mapStatus" class="mt-6 text-sm text-white/65">Menyiapkan peta dan sistem rekomendasi...</p>
+
+                <div class="mt-4 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,340px)]">
+                    <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
+                        <div
+                            id="barberMap"
+                            class="h-72 w-full sm:h-80 md:h-96 lg:h-[28rem]"
+                            data-nearby-url="{{ url('/nearby-barbers') }}"
+                            data-center-lat="{{ $lp['map']['center_lat'] ?? -6.2088 }}"
+                            data-center-lng="{{ $lp['map']['center_lng'] ?? 106.8456 }}"
+                            data-zoom="{{ $lp['map']['zoom'] ?? 12 }}"
+                        ></div>
+                        <div id="liveIndicator" class="absolute left-3 top-3 z-[400] hidden items-center gap-1.5 rounded-full bg-neutral-950/80 px-3 py-1.5 text-[10px] font-semibold text-emerald-300 ring-1 ring-emerald-400/30 backdrop-blur">
+                            <span class="inline-block h-2 w-2 animate-pulse rounded-full bg-emerald-400"></span>
+                            LIVE
+                        </div>
+                        <button
+                            type="button"
+                            id="followLocationBtn"
+                            class="absolute bottom-3 right-3 z-[400] rounded-full bg-sky-500 px-3 py-1.5 text-[10px] font-semibold text-white shadow-lg hover:bg-sky-400"
+                        >
+                            Mengikuti
+                        </button>
+                        <div id="mapLoading" class="absolute inset-0 z-[500] flex items-center justify-center">
+                            <div class="rounded-2xl border border-white/10 bg-neutral-950/90 px-5 py-4 text-center shadow-xl">
+                                <div class="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-white/20 border-t-sky-400"></div>
+                                <p data-loading-label class="mt-3 text-sm font-medium text-white/80">Mengambil lokasi GPS...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="mb-3 text-xs font-semibold tracking-[0.2em] text-white/50">REKOMENDASI TERDEKAT</p>
+                        <div id="barberList" class="flex flex-col gap-3">
+                            <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm text-white/60">
+                                Memuat rekomendasi barbershop...
+                            </div>
                         </div>
                     </div>
                 </div>

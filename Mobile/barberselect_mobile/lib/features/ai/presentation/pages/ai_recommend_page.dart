@@ -96,7 +96,10 @@ class _AiRecommendPageState extends State<AiRecommendPage> {
                           color: const Color(0xFF0A0A0A).withValues(alpha: 0.6),
                           border: Border.all(color: const Color(0x1AFFFFFF)),
                         ),
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -110,21 +113,34 @@ class _AiRecommendPageState extends State<AiRecommendPage> {
                             _LabeledDropdown(
                               label: 'Jenis rambut (opsional)',
                               value: _hairType,
-                              items: const ['Lurus', 'Bergelombang', 'Keriting'],
+                              items: const [
+                                'Lurus',
+                                'Bergelombang',
+                                'Keriting',
+                              ],
                               onChanged: (v) => setState(() => _hairType = v),
                             ),
                             const SizedBox(height: 12),
                             _LabeledDropdown(
                               label: 'Aktivitas harian',
                               value: _activity,
-                              items: const ['Kantoran', 'Kuliah', 'Freelance', 'Olahraga'],
+                              items: const [
+                                'Kantoran',
+                                'Kuliah',
+                                'Freelance',
+                                'Olahraga',
+                              ],
                               onChanged: (v) => setState(() => _activity = v),
                             ),
                             const SizedBox(height: 12),
                             _LabeledDropdown(
                               label: 'Preferensi style',
                               value: _stylePref,
-                              items: const ['Clean & modern', 'Klasik & elegan', 'Bold & edgy'],
+                              items: const [
+                                'Clean & modern',
+                                'Klasik & elegan',
+                                'Bold & edgy',
+                              ],
                               onChanged: (v) => setState(() => _stylePref = v),
                             ),
                           ],
@@ -134,8 +150,9 @@ class _AiRecommendPageState extends State<AiRecommendPage> {
                       BlocBuilder<AiCubit, AiState>(
                         builder: (context, state) {
                           final bool isLoading = state is AiLoading;
-                          final String? message =
-                              state is AiError ? state.message : null;
+                          final String? message = state is AiError
+                              ? state.message
+                              : null;
 
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,7 +177,9 @@ class _AiRecommendPageState extends State<AiRecommendPage> {
                                       ? const SizedBox(
                                           height: 20,
                                           width: 20,
-                                          child: CircularProgressIndicator(strokeWidth: 2),
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                          ),
                                         )
                                       : const Text('Cari'),
                                 ),
@@ -204,8 +223,12 @@ class _AiRecommendPageState extends State<AiRecommendPage> {
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
-                              color: const Color(0xFF0A0A0A).withValues(alpha: 0.6),
-                              border: Border.all(color: const Color(0x1AFFFFFF)),
+                              color: const Color(
+                                0xFF0A0A0A,
+                              ).withValues(alpha: 0.6),
+                              border: Border.all(
+                                color: const Color(0x1AFFFFFF),
+                              ),
                             ),
                             child: Text(
                               response.recommendation,
@@ -229,19 +252,23 @@ class _AiRecommendPageState extends State<AiRecommendPage> {
                           GridView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 12,
-                              mainAxisSpacing: 12,
-                              childAspectRatio: 0.8,
-                            ),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 12,
+                                  mainAxisSpacing: 12,
+                                  childAspectRatio: 0.8,
+                                ),
                             itemCount: response.catalogRecommendations.length,
                             itemBuilder: (context, index) {
-                              final item = response.catalogRecommendations[index];
+                              final item =
+                                  response.catalogRecommendations[index];
                               return Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(24),
-                                  border: Border.all(color: const Color(0x1AFFFFFF)),
+                                  border: Border.all(
+                                    color: const Color(0x1AFFFFFF),
+                                  ),
                                   color: const Color(0x08FFFFFF),
                                 ),
                                 child: Column(
@@ -252,9 +279,10 @@ class _AiRecommendPageState extends State<AiRecommendPage> {
                                         width: double.infinity,
                                         decoration: BoxDecoration(
                                           color: const Color(0xFF1C1F33),
-                                          borderRadius: const BorderRadius.vertical(
-                                            top: Radius.circular(24),
-                                          ),
+                                          borderRadius:
+                                              const BorderRadius.vertical(
+                                                top: Radius.circular(24),
+                                              ),
                                         ),
                                         child: const Icon(
                                           Icons.image_outlined,
@@ -266,7 +294,8 @@ class _AiRecommendPageState extends State<AiRecommendPage> {
                                     Padding(
                                       padding: const EdgeInsets.all(12),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             item.name,
@@ -282,7 +311,9 @@ class _AiRecommendPageState extends State<AiRecommendPage> {
                                           Text(
                                             item.category ?? '—',
                                             style: TextStyle(
-                                              color: Colors.white.withValues(alpha: 0.65),
+                                              color: Colors.white.withValues(
+                                                alpha: 0.65,
+                                              ),
                                               fontSize: 11,
                                             ),
                                           ),
@@ -350,6 +381,9 @@ class _AiRecommendPageState extends State<AiRecommendPage> {
                   context.go('/ai');
                   break;
                 case 3:
+                  context.go('/map');
+                  break;
+                case 4:
                   context.go('/profile');
                   break;
               }
@@ -405,7 +439,10 @@ class _LabeledDropdown extends StatelessWidget {
                     .map(
                       (it) => DropdownMenuItem<String>(
                         value: it,
-                        child: Text(it, style: const TextStyle(color: Colors.white)),
+                        child: Text(
+                          it,
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
                     )
                     .toList(),

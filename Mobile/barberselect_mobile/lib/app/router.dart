@@ -7,6 +7,7 @@ import '../features/auth/presentation/pages/splash_screen.dart';
 import '../features/catalog/presentation/pages/catalog_page.dart';
 import '../features/dashboard/presentation/pages/home_page.dart';
 import '../features/ai/presentation/pages/ai_recommend_page.dart';
+import '../features/map/presentation/pages/nearby_map_page.dart';
 import '../features/profile/presentation/pages/profile_page.dart';
 
 class BarberSelectRouter {
@@ -39,6 +40,10 @@ class BarberSelectRouter {
             builder: (context, state) => const AiRecommendPage(),
           ),
           GoRoute(
+            path: '/map',
+            builder: (context, state) => const NearbyMapPage(),
+          ),
+          GoRoute(
             path: '/profile',
             builder: (context, state) => const ProfilePage(),
           ),
@@ -49,4 +54,3 @@ class BarberSelectRouter {
         ],
       );
 }
-

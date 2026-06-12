@@ -8,6 +8,7 @@ import '../features/catalog/data/catalog_repository.dart';
 import '../features/profile/data/profile_repository.dart';
 import '../features/landing/data/landing_repository.dart';
 import '../features/auth/data/auth_repository.dart';
+import '../features/map/data/map_repository.dart';
 
 /// Central place to register dependencies for the app (GetIt).
 class AppBootstrap {
@@ -42,6 +43,9 @@ class AppBootstrap {
           apiClient: _sl<ApiClient>(),
           authLocalDatasource: _sl<AuthLocalDatasource>(),
         ),
+      )
+      ..registerLazySingleton<MapRepository>(
+        () => MapRepository(apiClient: _sl<ApiClient>()),
       );
   }
 }
