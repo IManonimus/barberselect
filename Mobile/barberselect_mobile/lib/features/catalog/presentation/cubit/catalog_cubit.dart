@@ -13,6 +13,7 @@ class CatalogCubit extends Cubit<CatalogState> {
   CatalogCubit({required this.repository}) : super(CatalogInitial());
 
   Future<void> loadInitial() async {
+    if (isClosed) return;
     emit(CatalogLoading());
     try {
       final categories = await repository.fetchCategories();
@@ -34,6 +35,7 @@ class CatalogCubit extends Cubit<CatalogState> {
     int? categoryId,
     required String q,
   }) async {
+    if (isClosed) return;
     emit(CatalogLoading());
     try {
       final catalogs = await repository.fetchCatalogs(

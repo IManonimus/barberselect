@@ -19,22 +19,23 @@ Route::get('/landing-page', [LandingPageApiController::class, 'show']);
 Route::get('/barber-shops', [BarberShopController::class, 'index']);
 Route::get('/nearby-barbers', [BarberShopController::class, 'nearby']);
 
+// Mobile-friendly public API (tanpa perlu login)
+Route::get('/categories', [CategoryController::class, 'apiIndex']);
+Route::get('/catalogs', [CatalogController::class, 'apiIndex']);
+Route::get('/catalogs/{catalog}', [CatalogController::class, 'apiShow']);
+Route::post('/ai/recommend', [GroqController::class, 'recommend']);
+
+// Backward compatible Indonesian paths (public)
+Route::get('/kategori', [CategoryController::class, 'apiIndex']);
+Route::get('/katalog', [CatalogController::class, 'apiIndex']);
+Route::get('/katalog/{catalog}', [CatalogController::class, 'apiShow']);
+
 // Protected routes (butuh token)
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'apiLogout']);
 
-    // --- Mobile-friendly REST aliases (sesuai Flutter) ---
-    Route::get('/categories', [CategoryController::class, 'apiIndex']);
-    Route::get('/catalogs', [CatalogController::class, 'apiIndex']);
-    Route::get('/catalogs/{catalog}', [CatalogController::class, 'apiShow']);
     Route::get('/profile', [ProfileController::class, 'apiShow']);
     Route::put('/profile', [ProfileController::class, 'apiUpdate']);
-    Route::post('/ai/recommend', [GroqController::class, 'recommend']);
-
-    // --- Backward compatible Indonesian paths (optional) ---
-    Route::get('/kategori', [CategoryController::class, 'apiIndex']);
-    Route::get('/katalog', [CatalogController::class, 'apiIndex']);
-    Route::get('/katalog/{catalog}', [CatalogController::class, 'apiShow']);
 
     // --- Admin REST endpoints (mobile) ---
     Route::prefix('admin')->group(function () {

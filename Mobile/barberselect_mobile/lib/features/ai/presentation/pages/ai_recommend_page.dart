@@ -21,10 +21,10 @@ class _AiRecommendPageState extends State<AiRecommendPage> {
   String _activity = 'Kantoran';
   String _stylePref = 'Clean & modern';
 
-  Future<void> _submit() async {
+  Future<void> _submit(BuildContext ctx) async {
     final query =
         'wajah ${_faceShape.toLowerCase()}, aktivitas ${_activity.toLowerCase()}, gaya ${_stylePref.toLowerCase()}, jenis rambut ${_hairType.toLowerCase()}';
-    context.read<AiCubit>().recommend(query);
+    ctx.read<AiCubit>().recommend(query);
   }
 
   @override
@@ -172,7 +172,7 @@ class _AiRecommendPageState extends State<AiRecommendPage> {
                                 width: double.infinity,
                                 height: 48,
                                 child: ElevatedButton(
-                                  onPressed: isLoading ? null : _submit,
+                                  onPressed: isLoading ? null : () => _submit(context),
                                   child: isLoading
                                       ? const SizedBox(
                                           height: 20,
